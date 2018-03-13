@@ -17,10 +17,8 @@ class Solution(object):
      		return reduce(lambda x, y: x*10 + y, mlist)
 	def num2node(self, num):
 		'Transform number to ListNode'
-		mNode = ListNode(num % 10)
-		num = num / 10
 		A = ListNode(num % 10)
-		mNode.next = A
+		mNode = A
 		num = num / 10
 		while num != 0:
 			A.next = ListNode(num % 10)
@@ -52,4 +50,4 @@ l2.next.next = ListNode(4)
 
 print Solution().getnum(Solution().addTwoNumbers(l1, l2))
 
-print Solution().num2node(0).next.next
+print Solution().num2node(0).next
