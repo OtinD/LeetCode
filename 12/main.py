@@ -15,13 +15,12 @@ class Solution(object):
         l4 = ['', 'M', 'MM', 'MMM']
         l = [l1, l2, l3, l4]
         R = []
-        print l[0][num % 10]
         for i in range(0, 4):
             R.insert(0, l[i][num % 10])
             num = num/10
-        print R[0] + R[1] + R[2] + R[3]
+        return R[0] + R[1] + R[2] + R[3]
 
 A = Solution()
-A.intToRoman(3999)
+print A.intToRoman(3999)
 
 
