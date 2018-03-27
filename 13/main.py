@@ -17,7 +17,6 @@ class Solution(object):
                 [i, num] = [i + 1, num + d[s[i]]] if d[s[i]] >= d[s[i + 1]] else [i + 2, num + d[s[i + 1]] - d[s[i]]]
             else:
                 [i, num] = [i + 1, num + d[s[i]]]
-            print num
         return num
 
 A = Solution()
