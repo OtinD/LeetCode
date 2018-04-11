@@ -5,6 +5,102 @@
 
 import random
 import time
+import math
+
+## Tree
+class Node(object):
+    def __init__(self, elem=None, lchile=None, rchild=None):
+        self.elem = elem
+        self.lchild = lchile
+        self.rchild = rchild
+
+
+class Tree(object):
+
+    def __init__(self):
+        self.root = Node()
+        # myqueue中存的是没有填满的节点
+        self.myqueue = []
+        self.length = 0
+
+    def switch(self, Node1, Node2):
+        register = Node1.elem
+        Node1.elem = Node2.elem
+        Node2.elem = register
+        return
+
+    def add(self, elem):
+        if self.root.elem == None:
+            self.root.elem = elem
+            self.myqueue.append(self.root)
+            self.length += 1
+        else:
+            treenode = self.myqueue[0]
+            if treenode.lchild == None:
+                treenode.lchild = Node(elem)
+                self.myqueue.append(treenode.lchild)
+                self.length += 1
+            else:
+                treenode.rchild = Node(elem)
+                self.myqueue.append(treenode.rchild)
+                self.myqueue.pop(0)
+                self.length += 1
+
+    def later_digui(self, root='lala'):
+        if root == 'lala':
+            root = self.root
+        if root == None:
+            return
+        self.later_digui(root.lchild)
+        self.later_digui(root.rchild)  
+        print root.elem
+
+    def leval_stack(self, root='lala'):
+        if root == 'lala':
+            root = self.root
+        if root == None:
+            return
+        mystack = []
+        node = root
+        mystack.append(node)
+        while node or mystack:
+            if node.lchild:
+                mystack.append(node.lchild)
+            if node.rchild:
+                mystack.append(node.rchild)
+            print mystack.pop(0).elem
+            if mystack:
+                node = mystack[0]
+            else:
+                node = None
+
+    def maxHip(self, root='lala'):
+        if root == 'lala':
+            root = self.root
+        if root == None:
+            return
+        self.maxHip(root.lchild)
+        self.maxHip(root.rchild) 
+        if root.lchild:
+            if root.lchild.elem > root.elem:
+                self.switch(root, root.lchild)
+                if root.rchild:
+                    if root.rchild.elem > root.elem:
+                        self.switch(root, root.lchild)
+                        self.switch(root, root.rchild)
+            if root.rchild:
+                if root.rchild.elem > root.elem:
+                    self.switch(root, root.rchild)
+
+    def MaxHip(self):
+        leval = int(math.floor(math.log(self.length, 2)) + 1)
+        for i in range(0, leval):
+            self.maxHip()
+
+
+
+        
+## Tree
 
 class Sorting(object):
     def __init__(self):
@@ -137,9 +233,31 @@ class Sorting(object):
             l[pivot_index + 1: length] = self.QuickSort(l[pivot_index + 1: length])
         return l
 
+    def HeapSort(self, ml):
+        l = ml[:]
+        length = len(l)
+        Heep = Tree()
+        for i in range(0, length):
+            Heep.add(l[i])
+            pass
+        Heep.MaxHip()
+        while Heep.root:
+            l[0] = 
 
 
-A = Sorting()
-A.test(A.ShellSort)
-mlist = A.randomlist()
+
+
+# A = Sorting()
+# A.test(A.ShellSort)
+# mlist = A.randomlist()
 # print A.MergeSort(mlist)
+
+T = Tree()
+for i in range(0, 10):
+    T.add(i)
+T.MaxHip()
+T.leval_stack()
+print T.length
+print (math.floor(math.log(T.length, 2)) + 1)
+
+
